@@ -11,7 +11,7 @@ namespace NuochoaHuxtah.Models
         public string Name { get; set; }
 
 		[Required, MinLength(4, ErrorMessage = "Yêu cầu nhập mô tả danh mục")]
-		public int Description { get; set; }
+		public string Description { get; set; }
 
         [Required]
         public string Slug { get; set; }

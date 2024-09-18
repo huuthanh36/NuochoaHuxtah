@@ -16,7 +16,7 @@ namespace NuochoaHuxtah.Models
 		public string Description { get; set; }
 
 		[Required, MinLength(4, ErrorMessage = "Yêu cầu nhập giá sản phẩm")]
-		public decimal price { get; set; }
+		public decimal Price { get; set; }
 
         public int BrandId { get; set; }
 
@@ -25,6 +25,8 @@ namespace NuochoaHuxtah.Models
         public CategoryModel Category { get; set; }
 
         public BrandModel Brand { get; set; }
+
+        public string Image { get; set; }
 
     }
 }

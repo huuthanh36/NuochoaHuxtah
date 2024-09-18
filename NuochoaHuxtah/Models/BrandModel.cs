@@ -13,8 +13,8 @@ namespace NuochoaHuxtah.Models
 		[Required, MinLength(4, ErrorMessage = "Yêu cầu nhập mô tả thương hiệu")]
 		public string Description { get; set; }
 
-        public int Slug { get; set;}
+        public string Slug { get; set;}
 
-        public string Status { get; set;}
+        public int Status { get; set;}
     }
 }
