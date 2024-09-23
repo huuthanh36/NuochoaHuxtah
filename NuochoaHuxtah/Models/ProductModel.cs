@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using NuochoaHuxtah.Repository.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,8 +21,10 @@ namespace NuochoaHuxtah.Models
         [Range(0.01, double.MaxValue)]
         [Column(TypeName = "decimal(8,2)")]
 		public decimal Price { get; set; }
+
 		[Required, Range(1,int.MaxValue, ErrorMessage = "Chọn một thương hiệu")]
 		public int BrandId { get; set; }
+
 		[Required, Range(1, int.MaxValue, ErrorMessage = "Chọn một danh mục")]
 		public int CategoryId { get; set; }
 
@@ -30,11 +32,11 @@ namespace NuochoaHuxtah.Models
 
         public BrandModel Brand { get; set; }
 
-        public string Image { get; set; } = "noimage.jpg";  
+        public string Image { get; set; } 
 
         [NotMapped]
-        [FileExtensions]
-        public IFormFile ImageUpload { get; set; }
+        [FileExtension]
+        public IFormFile? ImageUpload { get; set; } // Có hay không không quan trọng 
 
     }
 }
