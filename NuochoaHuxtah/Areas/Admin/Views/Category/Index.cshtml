@@ -20,6 +20,7 @@
             <th scope="col">Mô tả danh mục</th>
             <th scope="col">Slug</th>
             <th scope="col">Trạng thái danh mục</th>
+            <th scope="col">Quản lý</th>
         </tr>
     </thead>
     <tbody>
@@ -41,7 +42,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" class="btn btn-warning btn-sm" asp-controller="Category" asp-route-Id="@item.Id">Sửa</a>
-                    <a asp-action="Delete" class="btn btn-danger btn-sm" asp-controller="Category" asp-route-Id="@item.Id">Xóa</a>
+                    <a asp-action="Delete" class="btn btn-danger btn-sm confirmDeletion" asp-controller="Category" asp-route-Id="@item.Id">Xóa</a>
                 </td>
             </tr>
         }

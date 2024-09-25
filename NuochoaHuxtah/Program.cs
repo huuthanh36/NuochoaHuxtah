@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuochoaHuxtah.Repository;
 
@@ -34,6 +35,18 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+//Route Category
+app.MapControllerRoute(
+    name: "category",
+    pattern: "/category/{slug?}",
+    defaults: new {Controller="Category", action="Index"});
+//Route Brand
+app.MapControllerRoute(
+    name: "brand",
+    pattern: "/brand/{slug?}",
+    defaults: new { Controller = "Brand", action = "Index" });
+
+
 
 app.MapControllerRoute(
     name: "default",

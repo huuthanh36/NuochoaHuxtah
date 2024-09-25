@@ -66,8 +66,6 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int Id)
         {
             CategoryModel category = await _dataContext.Categories.FindAsync(Id);
-            
-
             _dataContext.Categories.Remove(category);
             await _dataContext.SaveChangesAsync();
             TempData["success"] = "Sản phẩm đã được xóa khỏi database";
@@ -78,6 +76,8 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
             CategoryModel category = await _dataContext.Categories.FindAsync(Id);
             return  View(category);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CategoryModel category)
         {
             if (ModelState.IsValid)// Kiểm tra tình trạng model
