@@ -9,7 +9,7 @@
 			<!--product-details-->
 			<div class="col-sm-5">
 				<div class="view-product">
-					<img src="~/images/@Model.Image" alt="" />
+					<img src="~/media/products/@Model.Image" alt="" />
 					<h3>ZOOM</h3>
 				</div>
 				<div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -43,10 +43,7 @@
 						<span>@Model.Price VND</span>
 						<label>Số lượng: </label>
 						<input type="text" value="1" />
-						<button type="button" class="btn btn-fefault cart">
-							<i class="fa fa-shopping-cart"></i>
-							Thêm vào giỏ hàng
-						</button>
+						<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="Cart" asp-route-Id="@Model.Id"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
 					</span>
 					<p><b>Trạng thái : </b>Còn hàng</p>
 					<p><b>Tình trạng : </b>Mới</p>
