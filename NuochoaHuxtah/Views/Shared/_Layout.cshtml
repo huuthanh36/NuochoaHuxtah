@@ -7,7 +7,7 @@
 	<meta name="author" content="">
 	<title>Trang chủ | Nước hoa Huxtah</title>
 	<link href="~/css/bootstrap.min.css" rel="stylesheet">
-	<link href="~/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 	<link href="~/css/prettyPhoto.css" rel="stylesheet">
 	<link href="~/css/price-range.css" rel="stylesheet">
 	<link href="~/css/animate.css" rel="stylesheet">
@@ -34,11 +34,11 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><img src="~/images/mbphone.png" width="10" height="10" class="fa fa-phone">+840327908007</img></li>
+								<li><a href="#"><i class="fa fa-phone"></i> nhtthanh633@gmail.com</a></li>
 								<li><a href="#"><i class="fa fa-envelope"></i> nhtthanh633@gmail.com</a></li>
 							</ul>
 						</div>
-					</div>
+					</div>	
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
@@ -84,11 +84,23 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
-								<li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
-								<li><a asp-controller="Cart"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i>Đăng nhập</a></li>
+								
+								
+								@if(User.Identity?.IsAuthenticated ?? false)
+								{
+									
+									<li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
+									<li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>
+									<li><a asp-controller="Cart"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+									<li><a href="checkout.html"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
+									<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-lock"></i>Hi - @User.Identity.Name Đăng xuất</a></li>
+								}
+								else
+								{
+									<li><a asp-controller="Cart"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i>Đăng nhập</a></li>
+								}
+
 							</ul>
 						</div>
 					</div>
@@ -386,6 +398,7 @@
 	<script src="~/js/price-range.js"></script>
 	<script src="~/js/jquery.prettyPhoto.js"></script>
 	<script src="~/js/main.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 	
 </body>
 </html>

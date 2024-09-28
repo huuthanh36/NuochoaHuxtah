@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuochoaHuxtah.Models;
 using NuochoaHuxtah.Repository;
@@ -6,7 +7,8 @@ using NuochoaHuxtah.Repository;
 namespace NuochoaHuxtah.Areas.Admin.Controllers
 {
     [Area("admin")]
-    public class BrandController : Controller
+	[Authorize]
+	public class BrandController : Controller
     {
 
         private readonly DataContext _dataContext;

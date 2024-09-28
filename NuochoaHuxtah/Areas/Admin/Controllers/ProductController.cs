@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuochoaHuxtah.Models;
@@ -7,6 +8,7 @@ using NuochoaHuxtah.Repository;
 namespace NuochoaHuxtah.Areas.Admin.Controllers
 {
 	[Area("admin")]
+    [Authorize]
 	public class ProductController : Controller
 	{
 		
