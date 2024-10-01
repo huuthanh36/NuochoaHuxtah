@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NuochoaHuxtah.Areas.Admin.Repository;
 using NuochoaHuxtah.Models;
 using NuochoaHuxtah.Models.ViewModels;
 using NuochoaHuxtah.Repository;
@@ -11,9 +12,11 @@ namespace NuochoaHuxtah.Controllers
 	public class CheckoutController : Controller
 	{
 		private readonly DataContext _dataContext;
-		public CheckoutController(DataContext _context)
+		private readonly IEmailSender _emailSender;
+		public CheckoutController(DataContext _context, IEmailSender emailSender)
 		{
 			_dataContext = _context;
+			_emailSender = emailSender;
 
 
 		}
@@ -49,6 +52,11 @@ namespace NuochoaHuxtah.Controllers
 					_dataContext.SaveChanges();
 				}
 				HttpContext.Session.Remove("Cart");
+				// Send maill
+				var receiver = userEmail;
+				var subject = "Đặt hàng thành công";
+				var message = "Đặt hàng thành công, chúc quý khách có trải nghiệm mua sắm tuyệt vời";
+				await _emailSender.SendEmailAsync(receiver, subject, message);
 				TempData["success"] = "Thanh toán thành công, vui lòng chờ duyệt đơn hàng";
 				return RedirectToAction("Index", "Cart");
 			}

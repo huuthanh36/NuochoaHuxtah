@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["title"] = "Users Listed";
+}
+<h4>Danh sách người dùng</h4>
+<style>
+    td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+</style>
+<a asp-action="Create" class="btn btn-default btn-sm" asp-controller="User">Thêm người dùng</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên người dùng</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mật khẩu</th>
+            <th scope="col">Điện thoại</th>
+            <th scope="col">Quyền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usersWithRoles in Model)
+        {
+            <tr class="td">
+                <th scope="row">@usersWithRoles.User.Id</th>
+                <td>@usersWithRoles.User.UserName</td>
+                <td>@usersWithRoles.User.Email</td>
+                <td>@usersWithRoles.User.PasswordHash</td>
+                <td>@usersWithRoles.User.PhoneNumber</td>
+                <td>@usersWithRoles.RoleName</td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning btn-sm" asp-controller="User" asp-route-Id="@usersWithRoles.User.Id">Sửa</a>
+                    <a asp-action="Delete" class="btn btn-danger btn-sm confirmDeletion" asp-controller="User" asp-route-Id="@usersWithRoles.User.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuochoaHuxtah.Areas.Admin.Repository;
 using NuochoaHuxtah.Models;
 using NuochoaHuxtah.Models.ViewModels;
 
@@ -10,11 +11,13 @@ namespace NuochoaHuxtah.Controllers
 		//Đăng ký dịch vụ đăng nhập và quản lý user của identity
 		private UserManager<AppUserModel> _userManager;
 		private SignInManager<AppUserModel> _signInManager;
+        private readonly IEmailSender _emailSender;
 
-		public AccountController(SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager)
+        public AccountController(SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager, IEmailSender emailSender)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
+			_emailSender = emailSender;
 		}
 		public IActionResult Login(string retunrUrl)
 		{
@@ -49,8 +52,12 @@ namespace NuochoaHuxtah.Controllers
 				IdentityResult result = await _userManager.CreateAsync(newUser,user.Password);
 				if (result.Succeeded)
 				{
-					TempData["success"] = "Tạo user thành công";
-					return Redirect("/account/login");
+					TempData["success"] = "Tạo tài khoản thành công";
+                    var receiver = user.Email;
+                    var subject = "Tạo tài khoản thành công";
+                    var message = "Đặt hàng thành công, chúc quý khách có trải nghiệm mua sắm tuyệt vời";
+                    await _emailSender.SendEmailAsync(receiver, subject, message);
+                    return Redirect("/account/login");
 				}
 				foreach(IdentityError error in result.Errors)
 				{

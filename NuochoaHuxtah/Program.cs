@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-
+using NuochoaHuxtah.Areas.Admin.Repository;
 using NuochoaHuxtah.Models;
 using NuochoaHuxtah.Repository;
 
@@ -15,7 +15,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:ConnectedDb"]);
 });
-
+// Add mail Sender
+builder.Services.AddTransient<IEmailSender,EmailSender>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -52,7 +53,7 @@ builder.Services.AddSession(options =>
 //	options.User.RequireUniqueEmail = true; // Yêu cầu email
 //});
 
-
+// Khai báo identity
 builder.Services.AddIdentity<AppUserModel,IdentityRole>()
 	.AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
@@ -84,8 +85,8 @@ app.UseStaticFiles();
 
 app.UseRouting();   
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();// Đăng nhập
+app.UseAuthorization();// Kiểm tra quyền
 
 app.MapControllerRoute(
     name: "Areas",

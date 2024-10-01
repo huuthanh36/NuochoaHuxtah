@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<CategoryModel>
 @{
     ViewData["title"] = "Category Listed";
+    Paginate pager = new Paginate();
+
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <h4>List Category</h4>
 <style>
@@ -47,6 +55,44 @@
             </tr>
         }
 
+        @* <partial name="_paging" model="@pager"/> *@
+        <div class="container">
+            @if (pager.TotalPages > 0) //2 trang
+            {
+                <ul class="pagination justify-content-end">
 
+                    @if (pager.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pg="1">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                        </li>
+                    }
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++) //1 = 1 <= 2
+                    {
+                        <li class="page-item @(pge==pager.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                        </li>
+
+
+                    }
+                    @if (pager.CurrentPage < pager.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pg="@(pager.CurrentPage+1)">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pg="@(pager.TotalPages)">Last</a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
     </tbody>
 </table>

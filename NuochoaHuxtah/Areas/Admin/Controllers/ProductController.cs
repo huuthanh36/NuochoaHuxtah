@@ -8,7 +8,7 @@ using NuochoaHuxtah.Repository;
 namespace NuochoaHuxtah.Areas.Admin.Controllers
 {
 	[Area("admin")]
-    [Authorize]
+	[Authorize]
 	public class ProductController : Controller
 	{
 		

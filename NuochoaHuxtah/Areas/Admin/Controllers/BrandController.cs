@@ -7,6 +7,7 @@ using NuochoaHuxtah.Repository;
 namespace NuochoaHuxtah.Areas.Admin.Controllers
 {
     [Area("admin")]
+    [Route("Admin/Brand")]
 	[Authorize]
 	public class BrandController : Controller
     {
@@ -18,16 +19,17 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
             _dataContext = context;
         }
 
-
+        [Route("Index")]
         public async Task<IActionResult> Index() // Phương thức bất đồng bộ
         {
             return View(await _dataContext.Brands.OrderByDescending(p => p.Id).ToListAsync());
         }
+        [Route("Create")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
-        
+        [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BrandModel brand)
