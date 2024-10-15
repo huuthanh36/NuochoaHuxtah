@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuochoaHuxtah.Areas.Admin.Repository;
 using NuochoaHuxtah.Models;
 using NuochoaHuxtah.Models.ViewModels;
+using NuochoaHuxtah.Repository;
+using System.Security.Claims;
 
 namespace NuochoaHuxtah.Controllers
 {
@@ -12,12 +15,13 @@ namespace NuochoaHuxtah.Controllers
 		private UserManager<AppUserModel> _userManager;
 		private SignInManager<AppUserModel> _signInManager;
         private readonly IEmailSender _emailSender;
-
-        public AccountController(SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager, IEmailSender emailSender)
+        private readonly DataContext _dataContext;
+        public AccountController(SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager, IEmailSender emailSender, DataContext context)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
 			_emailSender = emailSender;
+			_dataContext = context;
 		}
 		public IActionResult Login(string retunrUrl)
 		{
@@ -43,7 +47,49 @@ namespace NuochoaHuxtah.Controllers
 		{
 			return View();
 		}
-		[HttpPost]
+        public async Task<IActionResult> History()
+        {
+            if (!(bool)User.Identity?.IsAuthenticated)
+            {
+                // User is not logged in, redirect to login
+                return RedirectToAction("Login", "Account"); // Replace "Account" with your controller name
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            var Orders = await _dataContext.Orders
+                .Where(od => od.UserName == userEmail)
+                .OrderByDescending(od => od.Id)
+                .ToListAsync();
+
+            ViewBag.UserEmail = userEmail;
+            return View(Orders);
+        }
+        public async Task<IActionResult> CancelOrder(string ordercode)
+        {
+            if ((bool)!User.Identity?.IsAuthenticated)
+            {
+                // User chưa login-> login
+                return RedirectToAction("Login", "Account");
+            }
+            try
+            {
+                var order = await _dataContext.Orders.Where(o => o.OrderCode == ordercode).FirstAsync();
+                order.Status = 3;
+                _dataContext.Update(order);
+                await _dataContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Đã xảy ra lỗi khi hủy đơn hàng.");
+            }
+
+            return RedirectToAction("History", "Account");
+        }
+
+        [HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(UserModel user)
 		{
 			if (ModelState.IsValid)

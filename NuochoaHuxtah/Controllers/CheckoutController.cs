@@ -56,9 +56,9 @@ namespace NuochoaHuxtah.Controllers
 				var receiver = userEmail;
 				var subject = "Đặt hàng thành công";
 				var message = "Đặt hàng thành công, chúc quý khách có trải nghiệm mua sắm tuyệt vời";
-				await _emailSender.SendEmailAsync(receiver, subject, message);
+				//await _emailSender.SendEmailAsync(receiver, subject, message);
 				TempData["success"] = "Thanh toán thành công, vui lòng chờ duyệt đơn hàng";
-				return RedirectToAction("Index", "Cart");
+				return RedirectToAction("History", "Account");
 			}
 			return View();
 		}

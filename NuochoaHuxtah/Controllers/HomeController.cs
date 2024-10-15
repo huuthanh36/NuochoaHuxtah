@@ -16,9 +16,10 @@ namespace NuochoaHuxtah.Controllers
             _dataContext = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var products = _dataContext.Products.ToList();
+            
             return View(products);
         }
 

@@ -16,13 +16,18 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
 		{
 			_dataContext = context;
 		}
+		[HttpGet]
+		[Route("Index")]
 		public async Task<IActionResult> Index() // Phương thức bất đồng bộ
 		{
 			return View(await _dataContext.Orders.OrderByDescending(p => p.Id).ToListAsync());
 		}
+        [HttpGet]
+        [Route("ViewOrder")]
         public async Task<IActionResult> ViewOrder(string ordercode) // Phương thức bất đồng bộ
         {
 			var DetailsOrder = await _dataContext.OrderDetails.Include(od =>od.Product).Where(od=>od.OrderCode == ordercode).ToListAsync();
+			
             return View(DetailsOrder);
         }
 		[HttpPost]
@@ -45,6 +50,7 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
 				return StatusCode(500, "Có lỗi trong quá trình cập nhật trạng thái");
 			}
         }
+        
         public async Task<IActionResult> Delete(int Id)
         {
             OrderModel order = await _dataContext.Orders.FindAsync(Id);
