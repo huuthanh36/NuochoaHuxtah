@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqs9cHGPpoeqE4R9fo2UvFiRJksT2okbw"></script>
+
+<div id="contact-page" class="container">
+	<div class="bg">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2 class="title text-center">Liên hệ với <strong>chúng tôi</strong></h2>
+				<div id="gmap" class="contact-map" style="width: 100%; height: 400px;">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="contact-form">
+					<h2 class="title text-center">Liên hệ</h2>
+					<div class="status alert alert-success" style="display: none"></div>
+					<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+						<div class="form-group col-md-6">
+							<input type="text" name="name" class="form-control" required="required" placeholder="Họ và tên">
+						</div>
+						<div class="form-group col-md-6">
+							<input type="email" name="email" class="form-control" required="required" placeholder="Email">
+						</div>
+						<div class="form-group col-md-12">
+							<input type="text" name="subject" class="form-control" required="required" placeholder="Mô tả">
+						</div>
+						<div class="form-group col-md-12">
+							<textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Nhập tin nhắn của bạn ở đây"></textarea>
+						</div>
+						<div class="form-group col-md-12">
+							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="contact-info">
+					<h2 class="title text-center">Thông tin liên hệ</h2>
+					<address>
+						<p>HUXTAH PERFUME SHOP</p>
+						<p>B1 Hồng Phước, Phường Hòa Khánh Bắc, Quận Liên Chiểu</p>
+						<p>Đà Nẵng, Việt Nam</p>
+						<p>Mobile: 0327908007</p>
+						<p>Email: nhtthanh633@gmail.com</p>
+					</address>
+					<div class="social-networks">
+						<h2 class="title text-center">Mạng xã hội</h2>
+						<ul>
+							<li>
+								<a href="https://www.facebook.com/profile.php?id=61566441053590"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-google-plus"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-youtube"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--/#contact-page-->
+<script>
+	function initMap() {
+		
+		var location = { lat: 16.08981486000708, lng: 108.1205017 }; // Tọa độ của vị trí (Chicago, IL)
+		var map = new google.maps.Map(document.getElementById('gmap'), {
+			zoom: 14,
+			center: location
+		});
+		var marker = new google.maps.Marker({
+			position: location,
+			map: map
+		});
+	}
+	window.onload = initMap;
+</script>

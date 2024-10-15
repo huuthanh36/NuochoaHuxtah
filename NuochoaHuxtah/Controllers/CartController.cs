@@ -12,6 +12,7 @@ namespace NuochoaHuxtah.Controllers
         {
             _dataContext = _context;
         }
+        [Route("Cart")]
         public IActionResult Index()
         {
             //Tạo một danh sách với biến là cartitem 

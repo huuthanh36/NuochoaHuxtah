@@ -28,12 +28,21 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
+            // Using a left join to get users with or without roles
             var usersWithRoles = await (from u in _dataContext.Users
-                                        join ur in _dataContext.UserRoles on u.Id equals ur.UserId
-                                        join r in _dataContext.Roles on ur.RoleId equals r.Id
-                                        select new {User = u, RoleName = r.Name}).ToListAsync();
+                                        join ur in _dataContext.UserRoles on u.Id equals ur.UserId into userRoleGroup
+                                        from ur in userRoleGroup.DefaultIfEmpty() // Left join to include users without roles
+                                        join r in _dataContext.Roles on ur.RoleId equals r.Id into roleGroup
+                                        from r in roleGroup.DefaultIfEmpty() // Left join to include roles if exist
+                                        select new
+                                        {
+                                            User = u,
+                                            RoleName = r != null ? r.Name : " " // If no role, set as "No Role"
+                                        }).ToListAsync();
+
             return View(usersWithRoles);
         }
+
         [HttpGet]
         [Route("Create")]
         public async Task<IActionResult> Create()

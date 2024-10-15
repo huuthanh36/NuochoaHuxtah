@@ -15,7 +15,7 @@
 						<div class="productinfo text-center">
 							<a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id">
 								<img src="~/media/products/@item.Image" alt="" />
-								<h2>@item.Price</h2>
+								<h2>@item.Price.ToString("#,##0 VND")</h2>
 								<p>@item.Name</p>
 							</a>
 							<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="Cart" asp-route-Id="@item.Id"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>

@@ -13,6 +13,7 @@
 	<link href="~/css/animate.css" rel="stylesheet">
 	<link href="~/css/main.css" rel="stylesheet">
 	<link href="~/css/responsive.css" rel="stylesheet">
+	@* <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.1/dist/sweetalert2.min.css" rel="stylesheet"> *@
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
@@ -93,11 +94,15 @@
 									<li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>
 									<li><a asp-controller="Cart"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
 									<li><a href="checkout.html"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
+									if (User.Identity.Name =="huxtahadmin")
+									{
+										<li><a asp-controller="Admin"><i class="fa fa-user"></i>Admin</a></li>
+									}
 									<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-lock"></i>Hi - @User.Identity.Name Đăng xuất</a></li>
 								}
 								else
 								{
-									<li><a asp-controller="Cart"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+									<li><a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
 									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i>Đăng nhập</a></li>
 								}
 
@@ -123,15 +128,15 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a asp-controller="Home" class="active">Trang chủ</a></li>
+								<li><a asp-controller="Home" asp-action="Index" class="active">Trang chủ</a></li>
 								<li class="dropdown">
 									<a asp-controller="Product">Cửa hàng<i class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
 										<li><a asp-controller="Category">Danh mục</a></li>
 										<li><a asp-controller="Product" asp-action="Details">Chi tiết sản phẩm</a></li>
 										<li><a asp-controller="Cart" asp-action="Checkout">Thanh toán</a></li>
-										<li><a asp-controller="Cart">Giỏ hàng</a></li>
-										<li><a >Đăng nhập</a></li>
+										<li><a asp-controller="Cart" asp-action="Index">Giỏ hàng</a></li>
+										<li><a asp-controller="Account" asp-action="Login">Đăng nhập</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
@@ -141,15 +146,18 @@
 										<li><a href="blog-single.html">Blog Single</a></li>
 									</ul>
 								</li>
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Liên hệ</a></li>
+								<li><a asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search" />
-						</div>
+						<form asp-controller="Product" asp-action="Search" method="post">
+							<div class="search_box pull-right">
+								<input type="text" placeholder="Search" name="searchTerm"/>
+								<button class="btn btn-warning"type="submit">Search</button>
+							</div>
+						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -398,7 +406,12 @@
 	<script src="~/js/price-range.js"></script>
 	<script src="~/js/jquery.prettyPhoto.js"></script>
 	<script src="~/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/f48d109419.js" crossorigin="anonymous"></script>
+	@* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.1/dist/sweetalert2.all.min.js"></script> *@
 	@await RenderSectionAsync("Scripts", required: false)
-	
+	@* <script>
+		let table = new DataTable('#mytable');
+	</script>
+	 *@
 </body>
 </html>

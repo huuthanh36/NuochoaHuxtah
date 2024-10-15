@@ -6,7 +6,7 @@ using NuochoaHuxtah.Repository;
 
 namespace NuochoaHuxtah.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     [Route("Admin/Brand")]
 	[Authorize]
 	public class BrandController : Controller
@@ -68,12 +68,10 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
             return View(brand);
         }
 
-
+        [Route("Delete")]
         public async Task<IActionResult> Delete(int Id)
         {
             BrandModel brand = await _dataContext.Brands.FindAsync(Id);
-
-
             _dataContext.Brands.Remove(brand);
             await _dataContext.SaveChangesAsync();
             TempData["success"] = "Thương hiệu đã được xóa khỏi database";

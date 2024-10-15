@@ -19,7 +19,7 @@ namespace NuochoaHuxtah.Models
 
 		[Required( ErrorMessage = "Yêu cầu nhập giá sản phẩm")]
         [Range(0.01, double.MaxValue)]
-        [Column(TypeName = "decimal(8,2)")]
+        [Column(TypeName = "decimal(18,2)")]
 		public decimal Price { get; set; }
 
 		[Required, Range(1,int.MaxValue, ErrorMessage = "Chọn một thương hiệu")]
@@ -33,6 +33,7 @@ namespace NuochoaHuxtah.Models
         public BrandModel Brand { get; set; }
 
         public string Image { get; set; } 
+        public ReviewModel Reviews { get; set; }
 
         [NotMapped]
         [FileExtension]

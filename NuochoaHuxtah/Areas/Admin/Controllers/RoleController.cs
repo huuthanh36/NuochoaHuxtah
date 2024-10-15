@@ -42,6 +42,7 @@ namespace NuochoaHuxtah.Areas.Admin.Controllers
             {
                 _roleManager.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();
             }
+            TempData["success"] = "Đã thêm thành công quyền";
             return Redirect("Index");
         }
         [HttpGet]

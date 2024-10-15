@@ -12,13 +12,13 @@
     }
 </style>
 
-<table class="table">
+<table class="table" id="mytable">
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Tên khách hàng</th>
             <th scope="col">Mã đơn hàng</th>
-            <th scope="col">Ngày đặt hàng</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Thời gian đặt</th>
             <th scope="col">Trạng thái đơn hàng</th>
             <th scope="col">Quản lý</th>
         </tr>
@@ -28,8 +28,8 @@
         {
             <tr class="td">
                 <th scope="row">@item.Id</th>
-                <td>@item.UserName</td>
                 <td>@item.OrderCode</td>
+                <td>@item.UserName</td>
                 <td>@item.CreatedDate</td>
                 <td>
                     @if (item.Status == 1)
@@ -38,7 +38,7 @@
                     }
                     else
                     {
-                        <span class="text text-success">Đơn hàng thành công</span>
+                        <span class="text text-danger">Đã xử lý</span>
                     }
                 </td>
                 <td>
